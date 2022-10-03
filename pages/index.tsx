@@ -10,6 +10,7 @@ import useAuth from '../hooks/useAuth';
 import styles from '../styles/Login.module.css';
 import SignUpFormModal from '../components/LoginPage/SignUpFormModal';
 import SignInFormModal from '../components/LoginPage/SignInFormModal';
+import TwitterLoading from '../components/UI/TwitterLoading';
 
 const Login = () => {
   const { user, signInWithGoogle } = useAuth();
@@ -24,8 +25,10 @@ const Login = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (user) router.replace('/home');
-  }, []);
+    if (user) router.push('/home');
+  }, [user]);
+
+  if (user) return <TwitterLoading />;
 
   return (
     <>
