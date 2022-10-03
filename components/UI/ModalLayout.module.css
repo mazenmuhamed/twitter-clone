@@ -1,0 +1,16 @@
+.modal {
+  min-height: 20rem;
+  border-radius: 1.5rem;
+  background: var(--background);
+  color: var(--color-primary-text);
+}
+
+.button {
+  font-size: 1.4rem;
+  padding: 1rem;
+  top: 1rem;
+  left: 1rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 10rem;
+}

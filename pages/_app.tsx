@@ -1,10 +1,11 @@
+import Head from 'next/head';
+import Router from 'next/router';
+import createCache from '@emotion/cache';
 import { AppProps } from 'next/app';
 import { CacheProvider } from '@emotion/react';
 import { ChakraProvider } from '@chakra-ui/react';
-import createCache from '@emotion/cache';
-import Router from 'next/router';
-import Head from 'next/head';
 
+import { AuthProvider } from '../hooks/useAuth';
 import progress from '../lib/progress-bar';
 import '../styles/globals.css';
 
@@ -29,7 +30,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <CacheProvider value={emotionCache}>
         <ChakraProvider>
-          <Component {...pageProps} />
+          <AuthProvider>
+            <Component {...pageProps} />
+          </AuthProvider>
         </ChakraProvider>
       </CacheProvider>
     </>

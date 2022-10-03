@@ -1,0 +1,147 @@
+.page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.cover {
+  flex: 1.2;
+  height: 100vh;
+  background: url(../public/images/cover.png) center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover-logo {
+  width: 35rem;
+  height: 35rem;
+  color: #fff;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  overflow-y: auto;
+}
+
+.container-logo {
+  width: 4.8rem;
+  height: 4.8rem;
+  color: var(--color-primary);
+}
+
+.container-title {
+  font-size: 7rem;
+  font-weight: 700;
+  color: var(--color-primary-text);
+  margin: 4.5rem 0;
+}
+
+.container-subtitle {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-primary-text);
+  margin-bottom: 3rem;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 30rem;
+  padding: 0.8rem 2rem;
+  border: 1px solid var(--color-gray-light-2);
+  border-radius: 10rem;
+  transition: background 0.2s;
+  outline: none;
+}
+
+.button[data-type='solid'] {
+  background: var(--color-primary);
+  border: none;
+  padding: 1rem 2rem;
+}
+
+.button[data-type='solid']:hover {
+  background: var(--color-primary-dark);
+}
+
+.button:hover {
+  background: var(--color-gray-light-1);
+  border-color: var(--color-gray-light-3);
+}
+
+.button:active {
+  background: var(--color-gray-light-2);
+}
+
+.button-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary-text);
+}
+
+.button[data-type='solid'] .button-text {
+  color: #fff;
+}
+
+.button-text[data-icon='apple'] {
+  transform: translateX(-4px);
+}
+
+.button-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: var(--color-primary-text);
+  transform: translateX(-4px);
+}
+
+.separetor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30rem;
+  margin: 1rem 0;
+}
+
+.container-text {
+  width: 30rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-primary-text);
+  margin-top: 1rem;
+}
+
+.container-singin {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 6rem;
+}
+
+.container-signin-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--color-primary-text);
+}
+
+.button[data-hover='blue']:hover {
+  background: rgba(var(--color-primary-hover));
+}
+
+.button[data-hover='blue'] .button-text {
+  color: var(--color-primary);
+}

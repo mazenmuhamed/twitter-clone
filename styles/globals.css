@@ -4,6 +4,16 @@
   --color-primary: #1d9bf0;
   --color-primary-dark: #1a8cd8;
 
+  --color-primary-hover: 29, 155, 240, 0.1;
+
+  --color-gray-light-1: #e9ecef;
+  --color-gray-light-2: #dee2e6;
+  --color-gray-light-3: #ced4da;
+
+  --color-gray-dark-1: #adb5bd;
+  --color-gray-dark-2: #868e96;
+  --color-gray-dark-3: #495057;
+
   --color-primary-text: #0f1419;
 }
 
