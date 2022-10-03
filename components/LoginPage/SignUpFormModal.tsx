@@ -60,7 +60,7 @@ const SignUpFormModal = ({ isOpen, onClose }: Props) => {
           >
             <FormLabel
               className={styles['input-label']}
-              data-noEmpty={name?.length ? 'true' : 'false'}
+              data-valid={name?.length ? 'true' : 'false'}
             >
               Name
             </FormLabel>
@@ -97,7 +97,7 @@ const SignUpFormModal = ({ isOpen, onClose }: Props) => {
           >
             <FormLabel
               className={styles['input-label']}
-              data-noEmpty={email?.length ? 'true' : 'false'}
+              data-valid={email?.length ? 'true' : 'false'}
             >
               Email
             </FormLabel>
@@ -134,7 +134,7 @@ const SignUpFormModal = ({ isOpen, onClose }: Props) => {
             >
               <FormLabel
                 className={styles['input-label']}
-                data-noEmpty={password?.length ? 'true' : 'false'}
+                data-valid={password?.length ? 'true' : 'false'}
               >
                 Password
               </FormLabel>

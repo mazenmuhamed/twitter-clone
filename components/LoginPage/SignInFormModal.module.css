@@ -134,7 +134,7 @@
   transform: translateY(-100%) scale(0.8);
 }
 
-.input-label[data-noEmpty='true'] {
+.input-label[data-valid='true'] {
   transform: translateY(-100%) scale(0.8);
 }
 
@@ -157,7 +157,7 @@
 
 .input {
   font-size: 1.6rem;
-  padding: 0.5rem 0;
+  padding: 0.3rem 0;
   font-weight: 500;
 }
 

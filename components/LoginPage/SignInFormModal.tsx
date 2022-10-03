@@ -89,7 +89,7 @@ const SignInFormModal = ({ isOpen, onClose }: Props) => {
           >
             <FormLabel
               className={styles['input-label']}
-              data-noEmpty={email?.length ? 'true' : 'false'}
+              data-valid={email?.length ? 'true' : 'false'}
             >
               Email
             </FormLabel>
@@ -109,7 +109,6 @@ const SignInFormModal = ({ isOpen, onClose }: Props) => {
             {errors.email?.message || error}&nbsp;
           </Text>
           {/* Password input */}
-
           <FormControl
             className={styles['input-container']}
             data-invalid={
@@ -120,7 +119,7 @@ const SignInFormModal = ({ isOpen, onClose }: Props) => {
           >
             <FormLabel
               className={styles['input-label']}
-              data-noEmpty={password?.length ? 'true' : 'false'}
+              data-valid={password?.length ? 'true' : 'false'}
             >
               Password
             </FormLabel>

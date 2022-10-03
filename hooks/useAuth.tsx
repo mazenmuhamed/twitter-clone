@@ -12,6 +12,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
   updateProfile,
   User,
 } from 'firebase/auth';
@@ -112,7 +113,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Logout
-  const logout = () => {};
+  const logout = () => signOut(auth);
 
   return (
     <AuthContext.Provider
