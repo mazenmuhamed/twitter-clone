@@ -83,7 +83,7 @@ const Tweet = ({ tweet }: Props) => {
         setComments(snapshot.docs.map(doc => doc.data()));
       });
     };
-    return () => unsubscribe();
+    unsubscribe();
   }, [tweet, user]);
 
   // Handlers

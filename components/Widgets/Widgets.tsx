@@ -1,9 +1,9 @@
 import { Box } from '@chakra-ui/react';
 import styles from './Widgets.module.css';
 
-type Props = {};
+// type Props = {};
 
-const Widgets = (props: Props) => {
+const Widgets = () => {
   return <Box className={styles.container}>Widgets</Box>;
 };
 export default Widgets;

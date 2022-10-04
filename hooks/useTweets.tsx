@@ -26,15 +26,14 @@ const useTweets = () => {
   const { user } = useAuth();
 
   // Get all tweets
-  useEffect(() => {
-    const unsubscribe = () => {
+  useEffect(
+    () =>
       onSnapshot(query(collection(db, 'tweets'), orderBy('createdAt', 'desc')), snapshot => {
         setTweets(snapshot.docs.map(doc => doc.data()));
         setTweetsLoading(false);
-      });
-    };
-    return () => unsubscribe();
-  }, [user?.uid]);
+      }),
+    []
+  );
 
   const addTweet = async (text: string, image?: string) => {
     if (!user || loading) return;
