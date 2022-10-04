@@ -13,7 +13,7 @@
 }
 
 .header {
-  width: 31.7rem;
+  width: 30rem;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -26,8 +26,8 @@
   align-self: flex-start;
   display: flex;
   flex-direction: column;
-  margin: 0.2rem 5rem;
-  width: 80%;
+  margin: 0.2rem 3rem;
+  width: 85%;
   height: 100%;
 }
 
