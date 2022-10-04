@@ -11,17 +11,27 @@ type Props = {
   children: ReactNode;
   isOpen: boolean;
   onClose: VoidFunction;
+  isCentered?: boolean;
+  closeOnEsc?: boolean;
+  closeOnOverlayClick?: boolean;
 };
 
-const ModalLayout = ({ children, isOpen, onClose }: Props) => {
+const ModalLayout = ({
+  isOpen,
+  onClose,
+  children,
+  isCentered = true,
+  closeOnEsc = true,
+  closeOnOverlayClick = true,
+}: Props) => {
   return (
     <Modal
       size="4xl"
       isOpen={isOpen}
       onClose={onClose}
-      isCentered={true}
-      closeOnEsc={false}
-      closeOnOverlayClick={false}
+      isCentered={isCentered}
+      closeOnEsc={closeOnEsc}
+      closeOnOverlayClick={closeOnOverlayClick}
     >
       <ModalOverlay />
       <ModalContent className={styles.modal}>

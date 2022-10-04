@@ -5,6 +5,7 @@
   --color-primary-dark: #1a8cd8;
 
   --color-primary-hover: 29, 155, 240, 0.1;
+  --color-primary-active: 29, 155, 240, 0.2;
 
   --color-gray-light-1: #e9ecef;
   --color-gray-light-2: #dee2e6;
@@ -37,4 +38,8 @@ body {
   font-weight: 400 !important;
   line-height: 1.4 !important;
   background: var(--background);
+}
+
+em-emoji-picker {
+  height: 35rem;
 }
