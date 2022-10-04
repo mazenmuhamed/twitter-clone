@@ -32,7 +32,8 @@
   color: #777;
 }
 
-.textarea[data-image='true'] {
+.textarea[data-image='true'],
+.textarea[data-size='true'] {
   min-height: 6rem;
 }
 
@@ -169,6 +170,7 @@
   border: none;
   width: fit-content;
   box-shadow: none;
+  padding: 0;
 }
 
 .toast {

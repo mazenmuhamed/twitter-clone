@@ -1,4 +1,5 @@
-export type Tweet = {
+interface IData {
+  uid: string;
   id: string;
   displayName: string;
   username: string;
@@ -6,4 +7,10 @@ export type Tweet = {
   text: string;
   image?: string;
   createdAt: string;
-};
+}
+
+export interface Tweet extends IData {}
+
+export interface Comment extends IData {
+  replyTo: string;
+}

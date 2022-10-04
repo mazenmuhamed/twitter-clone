@@ -24,21 +24,26 @@ import useTweets from '../../../hooks/useTweets';
 import styles from './TwitterInput.module.css';
 
 type EmojiBoxProps = {
+  name: string;
   Icon: IconType;
   onSelct: (emoji: any) => void;
 };
 
-const EmojiBox = ({ Icon, onSelct }: EmojiBoxProps) => {
+const EmojiBox = ({ name, Icon, onSelct }: EmojiBoxProps) => {
   return (
     <Popover>
-      <PopoverTrigger>
+      <Tooltip label={name} aria-label={name} className={styles.tooltip}>
         <Box>
-          <Icon />
+          <PopoverTrigger>
+            <Box className={styles['actions-left-item']} data-name={name}>
+              <Icon />
+            </Box>
+          </PopoverTrigger>
         </Box>
-      </PopoverTrigger>
+      </Tooltip>
       <PopoverContent className={styles['popover-content']}>
         <PopoverArrow />
-        <PopoverBody bg="transparent" border="none">
+        <PopoverBody bg="transparent" border="none" p="0">
           <Picker
             data={data}
             onEmojiSelect={onSelct}
@@ -53,23 +58,37 @@ const EmojiBox = ({ Icon, onSelct }: EmojiBoxProps) => {
 };
 
 type Props = {
+  autoFocus?: boolean;
+  isSmall?: boolean;
+  havePrivacy?: boolean; // Display privacy option
+  isReply?: boolean; // Reply to a tweet
+  tweetId?: string; // Tweet id to reply to
+  replyTo?: string; // User to reply to
   onClose?: VoidFunction; // If you want to close the modal
 };
 
-const TwitterInput = ({ onClose }: Props) => {
+const TwitterInput = ({
+  autoFocus = true,
+  havePrivacy = true,
+  isReply,
+  isSmall,
+  tweetId,
+  replyTo,
+  onClose,
+}: Props) => {
   const [inputValue, setInputValue] = useState('');
   const [selectedImage, setSelectedImage] = useState<string | ArrayBuffer>('');
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const imagePickRef = useRef<HTMLInputElement | null>(null);
 
-  const { loading, error, addTweet } = useTweets();
+  const { loading, error, addTweet, addReply } = useTweets();
 
   const toast = useToast();
 
   useEffect(() => {
-    if (textareaRef.current) textareaRef.current.focus();
-  }, []);
+    if (textareaRef.current && autoFocus) textareaRef.current.focus();
+  }, [autoFocus]);
 
   // Handlers
   const changeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -95,21 +114,33 @@ const TwitterInput = ({ onClose }: Props) => {
     setInputValue(inputValue + emoji.native || emoji.native);
   };
 
+  // Toast box
+  const toastBox = () => (
+    <Box className={styles.toast}>
+      <Text>{error || 'Your Tweet was sent.'}</Text>
+    </Box>
+  );
+
   // Add tweet
   const buttonClickHandler = () => {
-    addTweet(inputValue, selectedImage as string).finally(() => {
-      if (onClose) onClose();
-      setInputValue('');
-      setSelectedImage('');
-      // Send toast
-      toast({
-        render: () => (
-          <Box className={styles.toast}>
-            <Text>{error || 'Your Tweet was sent.'}</Text>
-          </Box>
-        ),
+    if (!isReply) {
+      addTweet(inputValue, selectedImage as string).finally(() => {
+        if (onClose) onClose();
+        setInputValue('');
+        setSelectedImage('');
+        // Send toast
+        toast({ render: toastBox });
       });
-    });
+    } else {
+      if (!tweetId || !replyTo) return;
+      addReply(inputValue, tweetId, replyTo, selectedImage as string).finally(() => {
+        if (onClose) onClose();
+        setInputValue('');
+        setSelectedImage('');
+        // Send toast
+        toast({ render: toastBox });
+      });
+    }
   };
 
   return (
@@ -123,6 +154,7 @@ const TwitterInput = ({ onClose }: Props) => {
           className={styles.textarea}
           maxLength={280}
           data-image={selectedImage ? true : false}
+          data-size={isSmall}
         />
         {selectedImage && (
           <Box className={styles['image-container']}>
@@ -132,16 +164,13 @@ const TwitterInput = ({ onClose }: Props) => {
               objectFit="cover"
               layout="fill"
             />
-            <Box
-              className={styles['image-close']}
-              onClick={() => setSelectedImage('')}
-            >
+            <Box className={styles['image-close']} onClick={() => setSelectedImage('')}>
               <IoClose />
             </Box>
             <Box className={styles['image-edit']}>Edit</Box>
           </Box>
         )}
-        <Box className={styles.privacy}>
+        <Box className={styles.privacy} hidden={!havePrivacy}>
           <IoEarth className={styles['privacy-icon']} />
           <span>Everyone can reply</span>
         </Box>
@@ -149,33 +178,28 @@ const TwitterInput = ({ onClose }: Props) => {
       {/* Actions */}
       <Box className={styles.actions}>
         <Box className={styles['actions-left']}>
-          {icons.map(({ name, Icon }) => (
-            <Tooltip
-              key={name}
-              label={name}
-              aria-label={name}
-              className={styles.tooltip}
-            >
-              <Box className={styles['actions-left-item']} data-name={name}>
-                {name === 'Media' && (
-                  <Icon onClick={() => imagePickRef.current?.click()} />
-                )}
-                {name === 'Media' && (
-                  <input
-                    hidden={true}
-                    type="file"
-                    name="file"
-                    ref={imagePickRef}
-                    onChange={imagePickHandler}
-                  />
-                )}
-                {name === 'Emoji' && (
-                  <EmojiBox Icon={Icon} onSelct={addEmoji} />
-                )}
-                {name !== 'Media' && name !== 'Emoji' && <Icon />}
-              </Box>
-            </Tooltip>
-          ))}
+          {icons.map(({ name, Icon }) => {
+            if (name === 'Emoji') {
+              return <EmojiBox key={name} name={name} Icon={Icon} onSelct={addEmoji} />;
+            }
+            return (
+              <Tooltip key={name} label={name} aria-label={name} className={styles.tooltip}>
+                <Box className={styles['actions-left-item']} data-name={name}>
+                  {name === 'Media' && <Icon onClick={() => imagePickRef.current?.click()} />}
+                  {name === 'Media' && (
+                    <input
+                      hidden={true}
+                      type="file"
+                      name="file"
+                      ref={imagePickRef}
+                      onChange={imagePickHandler}
+                    />
+                  )}
+                  {name !== 'Media' && name !== 'Emoji' && <Icon />}
+                </Box>
+              </Tooltip>
+            );
+          })}
         </Box>
         <Box className={styles['actions-right']}>
           <CircularProgress
@@ -193,7 +217,7 @@ const TwitterInput = ({ onClose }: Props) => {
             isLoading={loading}
             onClick={buttonClickHandler}
           >
-            Tweet
+            {isReply ? 'Reply' : 'Tweet'}
           </Button>
         </Box>
       </Box>

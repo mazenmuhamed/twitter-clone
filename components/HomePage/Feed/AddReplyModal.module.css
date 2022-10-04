@@ -1,0 +1,76 @@
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  padding-top: 6rem;
+}
+
+.container {
+  display: flex;
+  gap: 1.3rem;
+  height: 10rem;
+}
+
+.photo-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.line {
+  align-self: center;
+  height: 100%;
+  width: 0.2rem;
+  background: var(--color-gray-light-2);
+  margin: 0.5rem 0;
+}
+
+.tweet {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.4rem;
+  color: var(--color-gray-dark-3);
+}
+
+.name {
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--color-primary-text);
+}
+
+.name,
+.time {
+  cursor: pointer;
+}
+
+.name:hover,
+.time:hover {
+  text-decoration: underline;
+}
+
+.text {
+  font-size: 1.5rem;
+  color: var(--color-primary-text);
+  margin: 0.5rem 0;
+}
+
+.replyto {
+  font-size: 1.5rem;
+  color: var(--color-gray-dark-3);
+  cursor: pointer;
+}
+
+.replyto-username {
+  color: var(--color-primary);
+}
+
+.input-container {
+  display: flex;
+  gap: 0.5rem;
+}

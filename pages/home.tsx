@@ -4,8 +4,13 @@ import Navbar from '../components/Navbar';
 import Feed from '../components/HomePage/Feed';
 import Widgets from '../components/Widgets';
 import styles from '../styles/Home.module.css';
+import useAuth from '../hooks/useAuth';
 
 const Home = () => {
+  const { user } = useAuth();
+
+  if (!user) return null;
+
   return (
     <>
       <Head>
