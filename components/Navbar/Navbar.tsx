@@ -13,7 +13,6 @@ import Image from 'next/image';
 
 import tabs from './tabs';
 import useAuth from '../../hooks/useAuth';
-import TwitterLoading from '../UI/TwitterLoading';
 import styles from './Navbar.module.css';
 import AddTweetModal from './AddTweetModal';
 import UserAvatar from '../UI/UserAvatar';
@@ -27,8 +26,6 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const username = user?.email?.slice(0, user.email.indexOf('@'));
-
-  if (!user) return <TwitterLoading />;
 
   return (
     <header className={styles.header}>
