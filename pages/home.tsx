@@ -1,11 +1,10 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 
-import Navbar from '../components/Navbar';
 import Feed from '../components/HomePage/Feed';
 import Widgets from '../components/Widgets';
-import styles from '../styles/Home.module.css';
 import useAuth from '../hooks/useAuth';
+import AppLayout from '../components/UI/AppLayout';
 
 type Props = {
   trending: any[];
@@ -23,13 +22,10 @@ const Home = ({ trending, users }: Props) => {
         <title>Home / Twitter</title>
       </Head>
 
-      <main className={styles.page}>
-        <Navbar />
-        <section className={styles.container}>
-          <Feed />
-          <Widgets trending={trending} users={users} />
-        </section>
-      </main>
+      <AppLayout>
+        <Feed />
+        <Widgets trending={trending} users={users} />
+      </AppLayout>
     </>
   );
 };

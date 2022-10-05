@@ -16,7 +16,7 @@ const Feed = () => {
   const username = user?.email?.split('@')[0];
 
   return (
-    <Box className={styles.container}>
+    <Box className="container">
       <Header>
         <Text className={styles.title} onClick={() => router.prefetch('/home')}>
           Home

@@ -46,3 +46,11 @@ body {
 em-emoji-picker {
   height: 34.5rem;
 }
+
+/* Main section */
+.container {
+  width: 60rem;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--color-gray-light-1);
+}
