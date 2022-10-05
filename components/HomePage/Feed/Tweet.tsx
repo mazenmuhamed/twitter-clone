@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { collection, deleteDoc, doc, DocumentData, onSnapshot, setDoc } from 'firebase/firestore';
-import { Box, Spacer, Spinner, Text, Tooltip, useDisclosure } from '@chakra-ui/react';
+import { Box, Spacer, Spinner, Text, Tooltip, useDisclosure, useToast } from '@chakra-ui/react';
 import {
   IoChatbubbleOutline,
-  IoEllipsisHorizontal,
   IoHeart,
   IoHeartOutline,
   IoPerson,
@@ -19,6 +18,8 @@ import useAuth from '../../../hooks/useAuth';
 import formatDate from '../../../lib/format-date';
 import UserAvatar from '../../UI/UserAvatar';
 import AddReplyModal from './AddReplyModal';
+import TweetMenu from '../TweetMenu';
+import AlertMessage from '../TweetMenu/AlertMessage';
 import styles from './Tweet.module.css';
 
 type ActionProps = {
@@ -68,6 +69,9 @@ const Tweet = ({ tweet }: Props) => {
 
   const { user } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isAlertOpen, onOpen: onAlertOpen, onClose: onAlertClose } = useDisclosure();
+
+  const toast = useToast();
 
   useEffect(() => {
     if (!tweet.id || !user) return;
@@ -102,6 +106,19 @@ const Tweet = ({ tweet }: Props) => {
     }
   };
 
+  const deleteTweet = async () => {
+    if (!user) return;
+    await deleteDoc(doc(db, 'tweets', tweet.id)).finally(() => {
+      return toast({
+        render: () => (
+          <Box className={styles.toast}>
+            <Text>Your Tweet was deleted</Text>
+          </Box>
+        ),
+      });
+    });
+  };
+
   if (loading) {
     return (
       <Box className={styles.spinner}>
@@ -126,10 +143,7 @@ const Tweet = ({ tweet }: Props) => {
             <Text>@{tweet.username}</Text>•
             <Text className={styles.time}>{formatDate(tweet.createdAt)}</Text>
             <Spacer />
-            {/* TODO: Add menu */}
-            <Box className={styles['menu-icon']}>
-              <IoEllipsisHorizontal />
-            </Box>
+            <TweetMenu uid={tweet.uid} onDelete={onAlertOpen} />
           </Box>
           <Text className={styles.text}>{tweet.text}</Text>
           {tweet.image && (
@@ -166,6 +180,7 @@ const Tweet = ({ tweet }: Props) => {
       </Box>
       {/* Modals */}
       <AddReplyModal isOpen={isOpen} onClose={onClose} tweet={tweet} />
+      <AlertMessage isOpen={isAlertOpen} onClose={onAlertClose} onConfirm={deleteTweet} />
     </Box>
   );
 };
