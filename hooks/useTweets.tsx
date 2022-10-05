@@ -29,10 +29,11 @@ const useTweets = () => {
   useEffect(
     () =>
       onSnapshot(query(collection(db, 'tweets'), orderBy('createdAt', 'desc')), snapshot => {
-        setTweets(snapshot.docs.map(doc => doc.data()));
+        // setTweets(snapshot.docs.map(doc => doc.data()));
+        setTweets(snapshot.docs.filter(doc => doc.data().uid === user?.uid).map(doc => doc.data()));
         setTweetsLoading(false);
       }),
-    []
+    [user?.uid]
   );
 
   const addTweet = async (text: string, image?: string) => {

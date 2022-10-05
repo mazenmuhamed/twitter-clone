@@ -11,6 +11,18 @@
   align-items: center;
 }
 
+.toast {
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 1.3rem 0;
+  width: 22rem;
+  border-radius: 5px;
+  margin: 0 auto;
+  background: var(--color-primary);
+  color: #fff;
+  text-align: center;
+}
+
 .box {
   display: flex;
   flex-direction: column;
@@ -82,19 +94,6 @@
 .name:hover,
 .time:hover {
   text-decoration: underline;
-}
-
-.menu-icon {
-  font-size: 1.7rem;
-  padding: 0.7rem;
-  border-radius: 10rem;
-  transition: all 0.2s;
-  margin: -0.7rem;
-}
-
-.menu-icon:hover {
-  color: var(--color-primary);
-  background: rgba(var(--color-primary-hover));
 }
 
 .text {

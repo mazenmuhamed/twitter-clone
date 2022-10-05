@@ -1,0 +1,47 @@
+.menu {
+  font-size: 1.7rem;
+  padding: 0.7rem;
+  border-radius: 10rem;
+  transition: all 0.2s;
+  margin: -0.7rem;
+}
+
+.menu:hover {
+  color: var(--color-primary);
+  background: rgba(var(--color-primary-hover));
+}
+
+.menu-list {
+  padding: 0;
+  border: none;
+  width: 28rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.menu-item {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1.5rem;
+  padding: 1.5rem 2rem;
+  transition: background 0.2s;
+}
+
+.menu-item:hover {
+  background: var(--color-gray-hover);
+}
+
+.menu-icon {
+  font-size: 2rem;
+  color: var(--color-gray-dark-3);
+}
+
+.menu-label {
+  color: var(--color-primary-text);
+}
+
+.menu-item[data-type='delete'] .menu-icon,
+.menu-item[data-type='delete'] .menu-label {
+  color: #f4212e;
+}

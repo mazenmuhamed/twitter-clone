@@ -1,0 +1,40 @@
+.content {
+  border-radius: 1.2rem;
+  padding: 2rem 1.5rem;
+}
+
+.header {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.body {
+  font-size: 1.5rem;
+  color: var(--color-gray-dark-3);
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.button {
+  width: 100%;
+  font-size: 1.7rem;
+  padding: 2.3rem 0;
+  border-radius: 10rem;
+}
+
+.button:hover {
+  background: var(--color-gray-hover);
+}
+
+.button[data-bg='red'] {
+  color: #fff;
+  background: #f4212e;
+}
+
+.button[data-bg='red']:hover {
+  background: #dc1e29;
+}
