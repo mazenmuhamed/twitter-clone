@@ -1,4 +1,129 @@
 .container {
   width: 35rem;
-  margin: 1rem 2rem;
+  margin: 0 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-box {
+  height: 100%;
+}
+
+.widgets {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: -17rem;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  background: var(--color-gray-hover);
+  min-height: 10rem;
+  border-radius: 1.5rem;
+  padding: 1.5rem 0 0 0;
+  overflow: hidden;
+}
+
+.box-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  padding: 0 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.trend {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.trend:hover {
+  background: var(--color-gray-hover);
+}
+
+.trend-tag {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--color-gray-dark-3);
+  margin-bottom: 0.3rem;
+}
+
+.trend-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.trend-content-desc {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #111;
+  max-width: 75%;
+}
+
+.trend-content-image {
+  position: relative;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+}
+
+.user:hover {
+  background: var(--color-gray-hover);
+}
+
+.user-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.photo {
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 10rem;
+  overflow: hidden;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.user-info-tag {
+  font-size: 1.4rem;
+  color: var(--color-gray-dark-3);
+}
+
+.user-button {
+  font-size: 1.4rem;
+  padding: 1.6rem 2rem;
+  background: var(--color-primary-text);
+  color: #fff;
+  border-radius: 10rem;
+}
+
+.user-button:hover {
+  background: var(--color-primary-text);
+  opacity: 0.8;
 }
