@@ -1,10 +1,11 @@
 import { Box, Flex, Text, useDisclosure, useToast } from '@chakra-ui/react';
 import { deleteDoc, doc, DocumentData } from 'firebase/firestore';
 import Image from 'next/image';
+
+import { Comment, Tweet } from '../../types';
 import { db } from '../../firebase';
 import useAuth from '../../hooks/useAuth';
 import formatDate from '../../lib/format-date';
-import { Comment, Tweet } from '../../types';
 import AddReplyModal from '../HomePage/Feed/AddReplyModal';
 import TweetActions from '../HomePage/TweetActions/TweetActions';
 import TweetMenu from '../HomePage/TweetMenu';

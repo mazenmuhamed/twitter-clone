@@ -1,18 +1,18 @@
+import { useRouter } from 'next/router';
 import { Box, Flex, Spacer, Text, useDisclosure, useToast } from '@chakra-ui/react';
 import { deleteDoc, doc } from 'firebase/firestore';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { IoArrowBack } from 'react-icons/io5';
+import Image from 'next/image';
 import Moment from 'react-moment';
+
+import { Tweet as TweetData } from '../../types';
 import { db } from '../../firebase';
 import useAuth from '../../hooks/useAuth';
 import useTweets from '../../hooks/useTweets';
-import { Tweet as TweetData } from '../../types';
 import AddReplyModal from '../HomePage/Feed/AddReplyModal';
 import TweetActions from '../HomePage/TweetActions/TweetActions';
 import TweetMenu from '../HomePage/TweetMenu';
 import AlertMessage from '../HomePage/TweetMenu/AlertMessage';
-
 import Header from '../UI/Header';
 import TwitterInput from '../UI/TwitterInput/TwitterInput';
 import UserAvatar from '../UI/UserAvatar';

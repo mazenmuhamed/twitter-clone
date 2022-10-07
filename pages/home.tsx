@@ -1,6 +1,8 @@
+import { useContext, useLayoutEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 
+import { AppContext } from '../store/AppContext';
 import Feed from '../components/HomePage/Feed';
 import Widgets from '../components/Widgets';
 import useAuth from '../hooks/useAuth';
@@ -12,7 +14,10 @@ type Props = {
 };
 
 const Home = ({ trending, users }: Props) => {
+  const { setActiveNavIndex } = useContext(AppContext);
   const { user } = useAuth();
+
+  useLayoutEffect(() => setActiveNavIndex(0), [setActiveNavIndex]);
 
   if (!user) return null;
 

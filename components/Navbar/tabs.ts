@@ -1,7 +1,7 @@
 const tabs = [
   {
     title: 'Home',
-    path: '/',
+    path: '/home',
     icon: require('/public/icons/home-outline.svg'),
     activeIcon: require('/public/icons/home.svg'),
   },

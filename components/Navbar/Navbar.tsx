@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Button, List, ListItem, Spacer, useDisclosure } from '@chakra-ui/react';
 import { IoLogoTwitter } from 'react-icons/io5';
 import Image from 'next/image';
 
+import { AppContext } from '../../store/AppContext';
 import tabs from './tabs';
 import useAuth from '../../hooks/useAuth';
 import styles from './Navbar.module.css';
@@ -11,9 +12,9 @@ import AddTweetModal from './AddTweetModal';
 import UserAvatar from '../UI/UserAvatar';
 
 const Navbar = () => {
-  const router = useRouter();
+  const { activeNavIndex } = useContext(AppContext);
 
-  const [active, setActive] = useState(router.pathname === '/home' && 0);
+  const router = useRouter();
 
   const { user, logout } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,18 +37,18 @@ const Navbar = () => {
             <ListItem
               key={title}
               onClick={() => {
-                setActive(index);
+                // setActive(index);
                 if (path) router.push(path);
                 else router.push('/' + username);
               }}
               className={[styles['list-item'], styles.hover].join(' ')}
             >
-              {active === index ? (
+              {activeNavIndex === index ? (
                 <Image src={activeIcon} alt={title} width={27} height={27} />
               ) : (
                 <Image src={icon} alt={title} width={27} height={27} />
               )}
-              <span className={styles['list-item-title']} data-active={active === index}>
+              <span className={styles['list-item-title']} data-active={activeNavIndex === index}>
                 {title}
               </span>
             </ListItem>

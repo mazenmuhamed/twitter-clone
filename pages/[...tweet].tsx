@@ -1,7 +1,9 @@
+import { useContext, useLayoutEffect } from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { doc, getDoc } from 'firebase/firestore';
 import Head from 'next/head';
 
+import { AppContext } from '../store/AppContext';
 import { db } from '../firebase';
 import { Tweet as TweetData } from '../types';
 import AppLayout from '../components/UI/AppLayout';
@@ -14,6 +16,10 @@ type Props = {
 };
 
 const TweetPage = ({ tweet, trending }: Props) => {
+  const { setActiveNavIndex } = useContext(AppContext);
+
+  useLayoutEffect(() => setActiveNavIndex(undefined), [setActiveNavIndex]);
+
   const currentTweet: TweetData = JSON.parse(tweet);
 
   return (
