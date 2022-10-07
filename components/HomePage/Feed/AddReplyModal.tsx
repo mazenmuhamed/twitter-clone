@@ -14,7 +14,7 @@ type Props = {
   onClose: VoidFunction;
 };
 
-const AddReplyModal = ({ isOpen, onClose, tweet }: Props) => {
+const AddReplyModal = ({ tweet, isOpen, onClose }: Props) => {
   return (
     <ModalLayout
       isOpen={isOpen}
@@ -33,7 +33,9 @@ const AddReplyModal = ({ isOpen, onClose, tweet }: Props) => {
             <Box className={styles.header}>
               <Text className={styles.name}>{tweet.displayName}</Text>
               <Text>@{tweet.username}</Text>•
-              <Text className={styles.time}>{formatDate(tweet.createdAt)}</Text>
+              <Text className={styles.time}>
+                {formatDate(new Date(tweet.createdAt.seconds * 1000))}
+              </Text>
             </Box>
             <Text className={styles.text}>{tweet.text}</Text>
             <Text className={styles.replyto}>

@@ -1,0 +1,82 @@
+/* Actions */
+.actions {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5rem;
+  margin-top: 0.5rem;
+  transform: translateX(-0.7rem);
+}
+
+.actions[data-full='true'] {
+  width: 100%;
+  margin-top: 0;
+  transform: translateX(0);
+  justify-content: space-evenly;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.actions[data-full='true'] .action {
+  justify-content: center;
+  gap: 0;
+  cursor: pointer;
+}
+
+.action-icon {
+  font-size: 1.8rem;
+  color: var(--color-gray-dark-3);
+  border-radius: 10rem;
+  transition: all 0.2s;
+  padding: 0.7rem;
+}
+
+.actions[data-full='true'] .action-icon {
+  font-size: 2.3rem;
+  padding: 0.5rem;
+}
+
+.action-label {
+  font-size: 1.4rem;
+  transition: all 0.2s;
+}
+
+.action-label[data-hide='true'] {
+  display: none;
+}
+
+.action:hover .action-icon {
+  background: rgba(var(--color-primary-hover));
+}
+
+.action:hover .action-label,
+.action:hover .action-icon {
+  color: var(--color-primary);
+}
+
+.action[data-bg='green']:hover .action-icon {
+  background: rgba(83, 206, 165, 0.1);
+}
+
+.action[data-bg='green']:hover .action-label,
+.action[data-bg='green']:hover .action-icon {
+  color: #53cea5;
+}
+
+.action[data-bg='pink']:hover .action-icon {
+  background: rgba(249, 36, 134, 0.1);
+}
+
+.action[data-bg='pink']:hover .action-label,
+.action[data-bg='pink']:hover .action-icon {
+  color: #f92486;
+}
+
+.action-icon[data-liked='true'] {
+  color: #f92486;
+}

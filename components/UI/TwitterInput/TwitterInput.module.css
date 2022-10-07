@@ -16,6 +16,10 @@
   border-bottom: 1px solid var(--color-gray-light-1);
 }
 
+.box[data-border='true'] {
+  border-bottom: none;
+}
+
 .textarea {
   width: 100%;
   min-height: 14rem;
@@ -171,16 +175,5 @@
   width: fit-content;
   box-shadow: none;
   padding: 0;
-}
-
-.toast {
-  font-size: 1.5rem;
-  font-weight: 500;
-  padding: 1.3rem 0;
-  width: 22rem;
-  border-radius: 5px;
-  margin: 0 auto;
-  background: var(--color-primary);
-  color: #fff;
-  text-align: center;
+  box-shadow: none;
 }

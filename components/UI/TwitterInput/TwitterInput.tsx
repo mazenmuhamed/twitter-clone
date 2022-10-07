@@ -64,12 +64,14 @@ type Props = {
   isReply?: boolean; // Reply to a tweet
   tweetId?: string; // Tweet id to reply to
   replyTo?: string; // User to reply to
+  hideInputBorder?: boolean; // Hide input bottom border
   onClose?: VoidFunction; // If you want to close the modal
 };
 
 const TwitterInput = ({
   autoFocus = true,
   havePrivacy = true,
+  hideInputBorder,
   isReply,
   isSmall,
   tweetId,
@@ -116,7 +118,7 @@ const TwitterInput = ({
 
   // Toast box
   const toastBox = () => (
-    <Box className={styles.toast}>
+    <Box className="toast">
       <Text>{error || 'Your Tweet was sent.'}</Text>
     </Box>
   );
@@ -145,7 +147,7 @@ const TwitterInput = ({
 
   return (
     <Box className={styles.container}>
-      <Box className={styles.box}>
+      <Box className={styles.box} data-border={hideInputBorder}>
         <TextareaAutosize
           ref={textareaRef}
           value={inputValue}

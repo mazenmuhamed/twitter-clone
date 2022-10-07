@@ -26,18 +26,25 @@ const TweetMenu = ({ uid, onDelete }: Props) => {
       <Portal>
         <MenuList className={styles['menu-list']}>
           {user?.uid === uid ? (
-            <MenuItem className={styles['menu-item']} data-type="delete" onClick={onDelete}>
+            <MenuItem
+              className={styles['menu-item']}
+              data-type="delete"
+              onClick={e => {
+                e.stopPropagation();
+                onDelete();
+              }}
+            >
               <IoTrashBinOutline className={styles['menu-icon']} />
               <span className={styles['menu-label']}>Delete</span>
             </MenuItem>
           ) : (
-            <MenuItem className={styles['menu-item']}>
+            <MenuItem className={styles['menu-item']} onClick={clickHandler}>
               <IoSadOutline className={styles['menu-icon']} />
               <span className={styles['menu-label']}>Not interested in this Tweet</span>
             </MenuItem>
           )}
           {menu.map(({ Icon, label }, idx) => (
-            <MenuItem key={idx} className={styles['menu-item']}>
+            <MenuItem key={idx} className={styles['menu-item']} onClick={clickHandler}>
               <Icon className={styles['menu-icon']} />
               <span className={styles['menu-label']}>{label}</span>
             </MenuItem>

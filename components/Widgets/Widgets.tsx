@@ -15,7 +15,13 @@ const Trend = ({ trend }: TrendProps) => {
       <Box className={styles['trend-content']}>
         <Text className={styles['trend-content-desc']}>{trend.description}</Text>
         <Box className={styles['trend-content-image']}>
-          <Image src={trend.photo} alt={trend.description} layout="fill" objectFit="cover" />
+          <Image
+            src={trend.photo}
+            alt={trend.description}
+            layout="fill"
+            objectFit="cover"
+            quality={50}
+          />
         </Box>
       </Box>
     </Box>
@@ -31,7 +37,7 @@ const User = ({ user }: UserProps) => {
     <Box className={styles.user}>
       <Box className={styles['user-left']}>
         <Box className={styles.photo}>
-          <Image src={user.photoURL} alt={user.tag} layout="fill" objectFit="cover" />
+          <Image src={user.photoURL} alt={user.tag} layout="fill" objectFit="cover" quality={50} />
         </Box>
         <Box className={styles['user-info']}>
           <Text className={styles['user-info-name']}>{user.username}</Text>
@@ -45,8 +51,8 @@ const User = ({ user }: UserProps) => {
 };
 
 type Props = {
-  trending: any[];
-  users: any[];
+  trending?: any[];
+  users?: any[];
 };
 
 const Widgets = ({ trending, users }: Props) => {
@@ -54,7 +60,7 @@ const Widgets = ({ trending, users }: Props) => {
     <Box className={styles.container}>
       <Box className={styles['container-box']}>
         <Searchbar />
-        <Box className={styles.widgets}>
+        <Box className={styles.widgets} data-position={trending && users ? true : false}>
           {trending && (
             <Box className={styles.box}>
               <Text className={styles['box-heading']}>What’s happening</Text>

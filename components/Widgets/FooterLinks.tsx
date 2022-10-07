@@ -19,7 +19,8 @@ const FooterLinks = () => {
           <Text
             key={idx}
             fontSize="1.3rem"
-            color="gray.700"
+            color="gray.600"
+            fontWeight="500"
             cursor="pointer"
             _hover={{ textDecoration: 'underline' }}
             marginTop="-0.7rem"
@@ -28,7 +29,7 @@ const FooterLinks = () => {
           </Text>
         ))}
       </Flex>
-      <Text fontSize="1.3rem" color="gray.700" px="1rem">
+      <Text fontSize="1.3rem" color="gray.600" fontWeight="500" px="1rem">
         &copy;{year} Twitter, Inc.
       </Text>
     </Flex>

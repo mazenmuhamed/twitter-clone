@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 const formatDate = (date: any) => {
-  const currentDate = moment(date.toDate()).fromNow();
+  const currentDate = moment(date).fromNow();
   let formattedDate = currentDate.split(' ')[0] + currentDate.split(' ')[1][0];
   switch (formattedDate) {
     case 'ina':

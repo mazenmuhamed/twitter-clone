@@ -54,3 +54,28 @@ em-emoji-picker {
   flex-direction: column;
   border-right: 1px solid var(--color-gray-light-1);
 }
+
+.tooltip {
+  font-size: 1.2rem;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.spinner {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toast {
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding: 1.3rem 0;
+  width: 22rem;
+  border-radius: 5px;
+  margin: 0 auto;
+  background: var(--color-primary);
+  color: #fff;
+  text-align: center;
+}

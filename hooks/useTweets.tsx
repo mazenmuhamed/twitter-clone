@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   DocumentData,
   onSnapshot,
@@ -14,14 +15,22 @@ import {
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 
 import { db, storage } from '../firebase';
-import { Tweet } from '../types';
+import { Comment, Tweet } from '../types';
 import useAuth from './useAuth';
 
-const useTweets = () => {
+const useTweets = (id?: string, commentId?: string) => {
   const [tweetsLoading, setTweetsLoading] = useState(true);
   const [tweets, setTweets] = useState<DocumentData[] | Tweet[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>('');
+
+  // Actions
+  const [likes, setLikes] = useState<DocumentData[]>([]);
+  const [liked, setLiked] = useState(false);
+  const [commentLikes, setCommentLikes] = useState<DocumentData[]>([]);
+  const [commentLiked, setCommentLiked] = useState(false);
+  const [comments, setComments] = useState<DocumentData[] | Comment[]>([]);
+  const [actionsLoading, setActionsLoading] = useState(true);
 
   const { user } = useAuth();
 
@@ -36,6 +45,51 @@ const useTweets = () => {
     [user?.uid]
   );
 
+  useEffect(() => {
+    if (!id || !user) return;
+    const unsubscribe = () => {
+      // Get likes
+      onSnapshot(collection(db, 'tweets', id, 'likes'), snapshot => {
+        setLikes(snapshot.docs.map(doc => doc.data()));
+        setLiked(snapshot.docs.some(doc => doc.data().uid === user.uid));
+      });
+      // Get comments
+      onSnapshot(
+        query(collection(db, 'tweets', id, 'comments'), orderBy('createdAt', 'desc')),
+        snapshot => {
+          setComments(snapshot.docs.map(doc => doc.data()));
+        }
+      );
+      setActionsLoading(false);
+    };
+    unsubscribe();
+  }, [id, user]);
+
+  // Comments actions
+  useEffect(() => {
+    if (!id || !user || !commentId) return;
+    const unsubscribe = () => {
+      // Get likes
+      onSnapshot(collection(db, 'tweets', id, 'comments', commentId, 'likes'), snapshot => {
+        setCommentLikes(snapshot.docs.map(doc => doc.data()));
+        setCommentLiked(snapshot.docs.some(doc => doc.data().uid === user.uid));
+      });
+      // Get comments
+      onSnapshot(
+        query(
+          collection(db, 'tweets', id, 'comments', commentId, 'comments'),
+          orderBy('createdAt', 'desc')
+        ),
+        snapshot => {
+          setComments(snapshot.docs.map(doc => doc.data()));
+        }
+      );
+      setActionsLoading(false);
+    };
+    unsubscribe();
+  }, [commentId, id, user]);
+
+  // Create tweet
   const addTweet = async (text: string, image?: string) => {
     if (!user || loading) return;
     setLoading(true);
@@ -102,6 +156,53 @@ const useTweets = () => {
     setError(null);
   };
 
-  return { tweetsLoading, tweets, loading, error, addTweet, addReply };
+  // Like tweet
+  const addLike = (tweetId: string) => {
+    if (!user) return;
+    // Check if user has liked tweet
+    if (liked) {
+      deleteDoc(doc(db, 'tweets', tweetId, 'likes', user.uid));
+    } else {
+      setDoc(doc(db, 'tweets', tweetId, 'likes', user.uid), {
+        uid: user.uid,
+        username: user.email?.split('@')[0],
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      });
+    }
+  };
+
+  // Like comment
+  const addLikeComment = (tweetId: string, commentId: string) => {
+    if (!user) return;
+    // Check if user has liked comment
+    if (commentLiked) {
+      deleteDoc(doc(db, 'tweets', tweetId, 'comments', commentId, 'likes', user.uid));
+    } else {
+      setDoc(doc(db, 'tweets', tweetId, 'comments', commentId, 'likes', user.uid), {
+        uid: user.uid,
+        username: user.email?.split('@')[0],
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      });
+    }
+  };
+
+  return {
+    tweetsLoading,
+    actionsLoading,
+    tweets,
+    loading,
+    error,
+    liked,
+    likes,
+    comments,
+    commentLikes,
+    commentLiked,
+    addLike,
+    addTweet,
+    addReply,
+    addLikeComment,
+  };
 };
 export default useTweets;
