@@ -1,5 +1,6 @@
 import { Box, Button, Text } from '@chakra-ui/react';
 import Image from 'next/image';
+
 import FooterLinks from './FooterLinks';
 import Searchbar from './Searchbar';
 import styles from './Widgets.module.css';
@@ -67,6 +68,9 @@ const Widgets = ({ trending, users }: Props) => {
               {trending.map((trend, idx) => (
                 <Trend key={idx} trend={trend} />
               ))}
+              <Button variant="link" className={styles.link}>
+                See more
+              </Button>
             </Box>
           )}
           {users && (
@@ -75,6 +79,9 @@ const Widgets = ({ trending, users }: Props) => {
               {users.map((user, idx) => (
                 <User key={idx} user={user} />
               ))}
+              <Button variant="link" className={styles.link}>
+                See more
+              </Button>
             </Box>
           )}
           <FooterLinks />

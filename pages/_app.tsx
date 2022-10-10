@@ -8,6 +8,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { AuthProvider } from '../hooks/useAuth';
 import progress from '../lib/progress-bar';
 import '../styles/globals.css';
+import AppProvider from '../store/AppContext';
 
 // Progress bar
 Router.events.on('routeChangeStart', progress.start);
@@ -31,7 +32,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <CacheProvider value={emotionCache}>
         <ChakraProvider>
           <AuthProvider>
-            <Component {...pageProps} />
+            <AppProvider>
+              <Component {...pageProps} />
+            </AppProvider>
           </AuthProvider>
         </ChakraProvider>
       </CacheProvider>

@@ -1,11 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-  createContext,
-} from 'react';
+import { useContext, useState, useEffect, ReactNode, createContext } from 'react';
 import { useRouter } from 'next/router';
 import {
   createUserWithEmailAndPassword,
@@ -16,8 +10,9 @@ import {
   updateProfile,
   User,
 } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
-import { auth, db, provider } from '../firebase';
+import { collection, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadString } from 'firebase/storage';
+import { auth, db, provider, storage } from '../firebase';
 
 interface IAuth {
   user: User | null;
@@ -27,6 +22,7 @@ interface IAuth {
   signUp: (name: string, email: string, password: string) => void;
   signInWithGoogle: () => void;
   logout: () => void;
+  updateUserProfile: (name?: string, photoURL?: string) => Promise<void>;
 }
 
 const AuthContext = createContext<IAuth>({
@@ -37,6 +33,7 @@ const AuthContext = createContext<IAuth>({
   signUp: async () => {},
   signInWithGoogle: async () => {},
   logout: async () => {},
+  updateUserProfile: async () => {},
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -116,6 +113,55 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // Logout
   const logout = () => signOut(auth);
 
+  // Update user profile
+  const updateUserProfile = async (name?: string, photoUrl?: string) => {
+    if (!user) return;
+    try {
+      setLoading(true);
+      if (name) {
+        await updateProfile(user, { displayName: name });
+        const querySnapShot = await getDocs(collection(db, 'tweets'));
+        querySnapShot.docs.map(async doc => {
+          if (doc.data().uid !== user.uid) return;
+          await updateDoc(doc.ref, { displayName: name });
+          // Update user photo in comments
+          const commentsQuerySnapShot = await getDocs(collection(db, 'tweets', doc.id, 'comments'));
+          commentsQuerySnapShot.docs.map(async commentDoc => {
+            if (commentDoc.data().uid !== user.uid) return;
+            await updateDoc(commentDoc.ref, { displayName: name });
+          });
+        });
+      }
+      if (!photoUrl) return;
+      // Upload image to storage
+      const imageRef = ref(storage, `user/${user.uid}`);
+      await uploadString(imageRef, photoUrl, 'data_url');
+      const downloadURL = await getDownloadURL(imageRef);
+      await updateProfile(user, { photoURL: downloadURL });
+      // Update user in user's document
+      const docRef = doc(db, 'users', user.uid);
+      await setDoc(docRef, { photoURL: downloadURL }, { merge: true });
+      // Update user photo in tweets
+      const querySnapShot = await getDocs(collection(db, 'tweets'));
+      querySnapShot.docs.map(async doc => {
+        if (doc.data().uid !== user.uid) return;
+        await updateDoc(doc.ref, { photoURL: downloadURL });
+        await updateDoc(doc.ref, { displayName: name });
+        // Update user photo in comments
+        const commentsQuerySnapShot = await getDocs(collection(db, 'tweets', doc.id, 'comments'));
+        commentsQuerySnapShot.docs.map(async commentDoc => {
+          if (commentDoc.data().uid !== user.uid) return;
+          await updateDoc(commentDoc.ref, { photoURL: downloadURL });
+          await updateDoc(commentDoc.ref, { displayName: name });
+        });
+      });
+      setLoading(false);
+    } catch (error) {
+      const { message } = error as Error;
+      setError(message);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -126,6 +172,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         signUp,
         signInWithGoogle,
         logout,
+        updateUserProfile,
       }}
     >
       {!appLoading && children}
