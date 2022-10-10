@@ -44,15 +44,15 @@
 
 .box {
   width: 105%;
-  min-height: 13rem;
+  min-height: fit-content;
   background: #fff;
   border-radius: 1rem;
   box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
-  padding: 1rem 1.5rem;
   z-index: 100;
   visibility: hidden;
   position: absolute;
   top: 5.3rem;
+  overflow: hidden;
 }
 
 .box[data-show='true'] {
@@ -63,6 +63,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 1rem 1.5rem;
 }
 
 .box-heading {
@@ -84,5 +85,28 @@
   font-size: 1.5rem;
   color: var(--color-gray-dark-3);
   margin-top: 2rem;
+  margin-bottom: 2.5rem;
   text-align: center;
+}
+
+.box-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  cursor: pointer;
+}
+
+.box-item:hover {
+  background: var(--color-gray-hover);
+}
+
+.box-item-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.box-item-username {
+  font-size: 1.4rem;
+  color: var(--color-gray-dark-3);
 }
