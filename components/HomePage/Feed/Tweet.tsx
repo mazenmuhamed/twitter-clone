@@ -14,6 +14,7 @@ import TweetMenu from '../TweetMenu';
 import AlertMessage from '../TweetMenu/AlertMessage';
 import styles from './Tweet.module.css';
 import TweetActions from '../TweetActions/TweetActions';
+import useTweets from '../../../hooks/useTweets';
 
 type Props = {
   tweet: DocumentData | TweetData;
@@ -21,6 +22,7 @@ type Props = {
 
 const Tweet = ({ tweet }: Props) => {
   const { user } = useAuth();
+  const { loading } = useTweets();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isAlertOpen, onOpen: onAlertOpen, onClose: onAlertClose } = useDisclosure();
 
@@ -39,6 +41,8 @@ const Tweet = ({ tweet }: Props) => {
       });
     });
   };
+
+  if (!tweet.createdAt || loading) return null;
 
   return (
     <Box className={styles.box} onClick={() => router.push(`/${tweet.username}/${tweet.id}`)}>

@@ -10,7 +10,16 @@ import {
   updateProfile,
   User,
 } from 'firebase/auth';
-import { collection, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
+import {
+  arrayRemove,
+  arrayUnion,
+  collection,
+  doc,
+  DocumentData,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import { auth, db, provider, storage } from '../firebase';
 
@@ -23,6 +32,8 @@ interface IAuth {
   signInWithGoogle: () => void;
   logout: () => void;
   updateUserProfile: (name?: string, photoURL?: string) => Promise<void>;
+  followUser: (user: DocumentData | undefined) => Promise<void>;
+  unFollowUser: (user: DocumentData | undefined) => Promise<void>;
 }
 
 const AuthContext = createContext<IAuth>({
@@ -34,6 +45,8 @@ const AuthContext = createContext<IAuth>({
   signInWithGoogle: async () => {},
   logout: async () => {},
   updateUserProfile: async () => {},
+  followUser: async () => {},
+  unFollowUser: async () => {},
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -44,6 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const router = useRouter();
 
+  // Check if user is logged in
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
       if (user) {
@@ -84,7 +98,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             uid: credential.user.uid,
             displayName: name,
             email: credential.user.email,
+            username: credential.user?.email?.split('@')[0],
             photoURL: credential.user.photoURL,
+            followers: [],
+            following: [],
           });
         });
         setUser(credential.user);
@@ -104,7 +121,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           uid: result.user?.uid,
           displayName: result.user?.displayName,
           email: result.user?.email,
-          photoUrl: result.user?.photoURL,
+          username: result.user?.email?.split('@')[0],
+          photoURL: result.user?.photoURL,
+          followers: [],
+          following: [],
         });
       })
       .catch(error => setError(error.message));
@@ -144,15 +164,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       // Update user photo in tweets
       const querySnapShot = await getDocs(collection(db, 'tweets'));
       querySnapShot.docs.map(async doc => {
-        if (doc.data().uid !== user.uid) return;
-        await updateDoc(doc.ref, { photoURL: downloadURL });
-        await updateDoc(doc.ref, { displayName: name });
+        if (doc.data().uid === user.uid) {
+          await updateDoc(doc.ref, { photoURL: downloadURL });
+          await updateDoc(doc.ref, { displayName: name });
+        }
         // Update user photo in comments
         const commentsQuerySnapShot = await getDocs(collection(db, 'tweets', doc.id, 'comments'));
         commentsQuerySnapShot.docs.map(async commentDoc => {
-          if (commentDoc.data().uid !== user.uid) return;
-          await updateDoc(commentDoc.ref, { photoURL: downloadURL });
-          await updateDoc(commentDoc.ref, { displayName: name });
+          if (commentDoc.data().uid === user.uid) {
+            await updateDoc(commentDoc.ref, { photoURL: downloadURL });
+            await updateDoc(commentDoc.ref, { displayName: name });
+          }
         });
       });
       setLoading(false);
@@ -160,6 +182,69 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const { message } = error as Error;
       setError(message);
     }
+  };
+
+  // Follow user
+  const followUser = async (u: DocumentData | undefined) => {
+    if (!user || !u) return;
+    setLoading(true);
+    try {
+      const docRef = doc(db, 'users', user.uid);
+      await updateDoc(docRef, {
+        following: arrayUnion({
+          uid: u.uid,
+          displayName: u.displayName,
+          photoURL: u.photoURL,
+          email: u.email,
+          username: u.email?.split('@')[0],
+        }),
+      });
+      const userDocRef = doc(db, 'users', u.uid);
+      await updateDoc(userDocRef, {
+        followers: arrayUnion({
+          uid: user.uid,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          email: user.email,
+          username: user.email?.split('@')[0],
+        }),
+      });
+    } catch (error) {
+      const { message } = error as Error;
+      setError(message);
+    }
+    setLoading(false);
+  };
+
+  const unFollowUser = async (u: DocumentData | undefined) => {
+    if (!user || !u) return;
+    setLoading(true);
+    try {
+      const docRef = doc(db, 'users', user.uid);
+      await updateDoc(docRef, {
+        following: arrayRemove({
+          uid: u.uid,
+          displayName: u.displayName,
+          photoURL: u.photoURL,
+          email: u.email,
+          username: u.email?.split('@')[0],
+        }),
+      });
+      const userDocRef = doc(db, 'users', u.uid);
+      await updateDoc(userDocRef, {
+        followers: arrayRemove({
+          uid: user.uid,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          email: user.email,
+          username: user.email?.split('@')[0],
+        }),
+      });
+    } catch (error) {
+      const { message } = error as Error;
+      setError(message);
+    }
+    setLoading(false);
   };
 
   return (
@@ -173,6 +258,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         signInWithGoogle,
         logout,
         updateUserProfile,
+        followUser,
+        unFollowUser,
       }}
     >
       {!appLoading && children}

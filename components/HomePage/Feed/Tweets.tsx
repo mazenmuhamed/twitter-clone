@@ -7,7 +7,7 @@ import styles from './Tweets.module.css';
 const Tweets = () => {
   const { tweets, tweetsLoading } = useTweets();
 
-  if (tweetsLoading) {
+  if (tweetsLoading || !tweets) {
     return (
       <Box className="spinner">
         <Spinner size="xl" thickness="3px" emptyColor="#1d9bf01a" color="#1d9bf0" />

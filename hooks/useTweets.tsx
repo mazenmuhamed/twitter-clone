@@ -38,8 +38,7 @@ const useTweets = (id?: string, commentId?: string) => {
   useEffect(
     () =>
       onSnapshot(query(collection(db, 'tweets'), orderBy('createdAt', 'desc')), snapshot => {
-        // setTweets(snapshot.docs.map(doc => doc.data()));
-        setTweets(snapshot.docs.filter(doc => doc.data().uid === user?.uid).map(doc => doc.data()));
+        setTweets(snapshot.docs.map(doc => doc.data()));
         setTweetsLoading(false);
       }),
     [user?.uid]
@@ -106,16 +105,18 @@ const useTweets = (id?: string, commentId?: string) => {
     const tweetDoc = doc(db, 'tweets', docRef.id);
     await setDoc(tweetDoc, { id: docRef.id }, { merge: true });
     // If there is an image
-    if (image) {
-      // Upload image to storage
-      const imageRef = ref(storage, `tweets/${docRef.id}`);
-      await uploadString(imageRef, image, 'data_url')
-        .then(async () => {
-          const downloadURL = await getDownloadURL(imageRef);
-          await updateDoc(doc(db, 'tweets', docRef.id), { image: downloadURL });
-        })
-        .catch(err => setError(err.message));
+    if (!image) {
+      setLoading(false);
+      return;
     }
+    // Upload image to storage
+    const imageRef = ref(storage, `tweets/${docRef.id}`);
+    await uploadString(imageRef, image, 'data_url')
+      .then(async () => {
+        const downloadURL = await getDownloadURL(imageRef);
+        await updateDoc(doc(db, 'tweets', docRef.id), { image: downloadURL });
+      })
+      .catch(err => setError(err.message));
     // Reset values
     setLoading(false);
     setError(null);
