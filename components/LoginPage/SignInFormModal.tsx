@@ -10,12 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  IoEyeOffOutline,
-  IoEyeOutline,
-  IoLogoApple,
-  IoLogoTwitter,
-} from 'react-icons/io5';
+import { IoEyeOffOutline, IoEyeOutline, IoLogoApple, IoLogoTwitter } from 'react-icons/io5';
 import Image from 'next/image';
 
 import useAuth from '../../hooks/useAuth';
@@ -54,19 +49,14 @@ const SignInFormModal = ({ isOpen, onClose }: Props) => {
         <Box className={styles.buttons}>
           {/* Google button */}
           <button className={styles['button']} onClick={signInWithGoogle}>
-            <Image
-              src={require('/public/icons/google.svg')}
-              alt="Google"
-              width={22}
-              height={22}
-            />
-            <span className={styles['button-text']}>Sign up with Google</span>
+            <Image src={require('/public/icons/google.svg')} alt="Google" width={22} height={22} />
+            <span className={styles['button-text']}>Sign in with Google</span>
           </button>
           {/* Apple button */}
           <button className={styles['button']}>
             <IoLogoApple className={styles['button-icon']} />
             <span className={styles['button-text']} data-icon="apple">
-              Sign up with Apple
+              Sign in with Apple
             </span>
           </button>
         </Box>
@@ -105,9 +95,7 @@ const SignInFormModal = ({ isOpen, onClose }: Props) => {
               })}
             />
           </FormControl>
-          <Text className={styles['input-error']}>
-            {errors.email?.message || error}&nbsp;
-          </Text>
+          <Text className={styles['input-error']}>{errors.email?.message || error}&nbsp;</Text>
           {/* Password input */}
           <FormControl
             className={styles['input-container']}
@@ -146,9 +134,7 @@ const SignInFormModal = ({ isOpen, onClose }: Props) => {
               )}
             </Box>
           </FormControl>
-          <Text className={styles['input-error']}>
-            {errors.password?.message || error}&nbsp;
-          </Text>
+          <Text className={styles['input-error']}>{errors.password?.message || error}&nbsp;</Text>
           <Button
             type="submit"
             disabled={!email || !password}

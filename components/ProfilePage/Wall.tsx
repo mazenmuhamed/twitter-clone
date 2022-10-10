@@ -107,11 +107,11 @@ const Wall = ({ user }: Props) => {
           </Box>
           <Box className={styles['user-info-followers']}>
             <Text cursor="pointer" _hover={{ textDecoration: 'underline' }}>
-              <span style={{ fontWeight: '700' }}>{following.length} </span>
+              <span style={{ fontWeight: '700' }}>{following?.length || 0} </span>
               <span>Following</span>
             </Text>
             <Text cursor="pointer" _hover={{ textDecoration: 'underline' }}>
-              <span style={{ fontWeight: '700' }}>{followers.length} </span>
+              <span style={{ fontWeight: '700' }}>{followers?.length || 0} </span>
               <span>Followers</span>
             </Text>
           </Box>

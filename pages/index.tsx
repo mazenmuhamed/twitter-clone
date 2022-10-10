@@ -16,11 +16,7 @@ const Login = () => {
   const { user, signInWithGoogle } = useAuth();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isModalOpen,
-    onOpen: onModalOpen,
-    onClose: onModalClose,
-  } = useDisclosure();
+  const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
 
   const router = useRouter();
 
@@ -55,13 +51,13 @@ const Login = () => {
                 width={22}
                 height={22}
               />
-              <span className={styles['button-text']}>Sign up with Google</span>
+              <span className={styles['button-text']}>Sign in with Google</span>
             </button>
             {/* Apple button */}
             <button className={styles['button']}>
               <IoLogoApple className={styles['button-icon']} />
               <span className={styles['button-text']} data-icon="apple">
-                Sign up with Apple
+                Sign in with Apple
               </span>
             </button>
           </Box>
@@ -72,14 +68,8 @@ const Login = () => {
             </Text>
             <Box w="70%" h="1px" bg="gray.200" />
           </Box>
-          <button
-            className={styles['button']}
-            data-type="solid"
-            onClick={onOpen}
-          >
-            <span className={styles['button-text']}>
-              Sign up with email address
-            </span>
+          <button className={styles['button']} data-type="solid" onClick={onOpen}>
+            <span className={styles['button-text']}>Sign up with email address</span>
           </button>
           <Text className={styles['container-text']}>
             <Highlight
@@ -90,20 +80,14 @@ const Login = () => {
                 _hover: { textDecoration: 'underline' },
               }}
             >
-              By signing up, you agree to the Terms of Service and Privacy
-              Policy, including Cookie Use.
+              By signing up, you agree to the Terms of Service and Privacy Policy, including Cookie
+              Use.
             </Highlight>
           </Text>
           <Spacer />
           <Box className={styles['container-singin']}>
-            <Text className={styles['container-signin-title']}>
-              Aleady have an account?
-            </Text>
-            <button
-              className={styles['button']}
-              data-hover="blue"
-              onClick={onModalOpen}
-            >
+            <Text className={styles['container-signin-title']}>Aleady have an account?</Text>
+            <button className={styles['button']} data-hover="blue" onClick={onModalOpen}>
               <span className={styles['button-text']}>Sign in</span>
             </button>
           </Box>

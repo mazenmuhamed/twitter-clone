@@ -16,6 +16,7 @@ import {
   collection,
   doc,
   DocumentData,
+  getDoc,
   getDocs,
   setDoc,
   updateDoc,
@@ -114,9 +115,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // Sign in with google
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
-      .then(result => {
+      .then(async result => {
         setUser(result.user);
         // Save user with other users in firestore
+        const docRef = doc(db, 'users', result.user?.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) return;
         setDoc(doc(db, 'users', result.user.uid), {
           uid: result.user?.uid,
           displayName: result.user?.displayName,
