@@ -67,7 +67,12 @@ const Tweet = ({ tweet }: Props) => {
             />
             <Box className={styles['tweet-header']}>
               <Flex flexDirection="column">
-                <Text className={styles['tweet-name']}>{tweet.displayName}</Text>
+                <Text
+                  className={styles['tweet-name']}
+                  onClick={() => router.push(`/${tweet.username}`)}
+                >
+                  {tweet.displayName}
+                </Text>
                 <Text className={styles['tweet-username']}>@{tweet.username}</Text>
               </Flex>
               <Spacer />

@@ -170,10 +170,10 @@
 }
 
 .popover-content {
-  background: transparent;
-  border: none;
-  width: fit-content;
-  box-shadow: none;
   padding: 0;
-  box-shadow: none;
+  width: fit-content;
+  background: transparent;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }

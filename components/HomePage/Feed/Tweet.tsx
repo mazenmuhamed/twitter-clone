@@ -52,7 +52,15 @@ const Tweet = ({ tweet }: Props) => {
         <UserAvatar src={tweet.photoURL} alt={tweet.displayName} width="4.5rem" height="4.5rem" />
         <Box className={styles.tweet}>
           <Box className={styles.header}>
-            <Text className={styles.name}>{tweet.displayName}</Text>
+            <Text
+              className={styles.name}
+              onClick={e => {
+                e.stopPropagation();
+                router.push(`/${tweet.username}`);
+              }}
+            >
+              {tweet.displayName}
+            </Text>
             <Text>@{tweet.username}</Text>•
             <Text className={styles.time}>
               {formatDate(new Date(tweet.createdAt.seconds * 1000))}

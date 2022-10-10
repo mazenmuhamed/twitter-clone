@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { Box, Flex, Text, useDisclosure, useToast } from '@chakra-ui/react';
 import { deleteDoc, doc, DocumentData } from 'firebase/firestore';
 import Image from 'next/image';
@@ -19,6 +20,7 @@ type Props = {
 };
 
 const Comment = ({ comment, tweet }: Props) => {
+  const router = useRouter();
   const toast = useToast();
 
   const { user } = useAuth();
@@ -45,7 +47,12 @@ const Comment = ({ comment, tweet }: Props) => {
         <Box className={styles['comment-header']}>
           <Flex flexDirection="column">
             <Box className={styles['comment-names']}>
-              <Text className={styles['comment-name']}>{comment.displayName}</Text>
+              <Text
+                className={styles['comment-name']}
+                onClick={() => router.push(`/${comment.username}`)}
+              >
+                {comment.displayName}
+              </Text>
               <Text>@{comment.username}</Text>·
               <Text className={styles['comment-time']}>
                 {formatDate(new Date(comment.createdAt.seconds * 1000))}
