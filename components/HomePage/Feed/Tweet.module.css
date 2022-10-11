@@ -16,6 +16,7 @@
   transform: translateX(3.5rem);
   margin-bottom: -0.7rem;
   margin-top: -0.3rem;
+  width: fit-content;
 }
 
 .suggestion-icon {

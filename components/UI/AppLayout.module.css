@@ -11,3 +11,18 @@
   display: flex;
   min-height: 100vh;
 }
+
+@media only screen and (max-width: 56.25em) {
+  .container {
+    width: 81vw;
+  }
+}
+
+@media only screen and (max-width: 37.5em) {
+  .page {
+    position: relative;
+    top: unset;
+    left: unset;
+    transform: unset;
+  }
+}

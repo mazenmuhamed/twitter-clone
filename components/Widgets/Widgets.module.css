@@ -5,6 +5,20 @@
   flex-direction: column;
 }
 
+@media only screen and (max-width: 75em) {
+  .container {
+    width: 29rem;
+  }
+}
+
+@media only screen and (max-width: 62.5em) {
+  .container {
+    display: none;
+    width: 0;
+    margin: 0;
+  }
+}
+
 .container-box {
   height: 100%;
 }
@@ -38,6 +52,12 @@
   margin-bottom: 1rem;
 }
 
+@media only screen and (max-width: 75em) {
+  .box-heading {
+    font-size: 1.8rem;
+  }
+}
+
 .trend {
   display: flex;
   flex-direction: column;
@@ -67,6 +87,12 @@
   font-weight: 600;
   color: #111;
   max-width: 75%;
+}
+
+@media only screen and (max-width: 75em) {
+  .trend-content-desc {
+    font-size: 1.3rem;
+  }
 }
 
 .trend-content-image {
@@ -103,6 +129,13 @@
   overflow: hidden;
 }
 
+@media only screen and (max-width: 75em) {
+  .photo {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
 .user-info {
   display: flex;
   flex-direction: column;
@@ -114,8 +147,14 @@
   color: #111;
 }
 
+@media only screen and (max-width: 75em) {
+  .user-info-name {
+    font-size: 1.3rem;
+  }
+}
+
 .user-info-tag {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   color: var(--color-gray-dark-3);
 }
 
@@ -125,6 +164,13 @@
   background: var(--color-primary-text);
   color: #fff;
   border-radius: 10rem;
+}
+
+@media only screen and (max-width: 75em) {
+  .user-button {
+    font-size: 1.3rem;
+    padding: 1.4rem 1.8rem;
+  }
 }
 
 .user-button:hover {

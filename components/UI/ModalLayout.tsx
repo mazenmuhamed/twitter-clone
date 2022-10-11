@@ -1,10 +1,5 @@
 import { ReactNode } from 'react';
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalCloseButton,
-} from '@chakra-ui/react';
+import { Modal, ModalOverlay, ModalContent, ModalCloseButton } from '@chakra-ui/react';
 import styles from './ModalLayout.module.css';
 
 type Props = {
@@ -26,7 +21,8 @@ const ModalLayout = ({
 }: Props) => {
   return (
     <Modal
-      size="4xl"
+      size={{ base: 'full', md: '4xl' }}
+      // size="4xl"
       isOpen={isOpen}
       onClose={onClose}
       isCentered={isCentered}

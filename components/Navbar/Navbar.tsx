@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Button, List, ListItem, Spacer, useDisclosure } from '@chakra-ui/react';
-import { IoLogoTwitter } from 'react-icons/io5';
+import { IoAdd, IoLogoTwitter } from 'react-icons/io5';
 import Image from 'next/image';
 
 import { AppContext } from '../../store/AppContext';
@@ -64,7 +64,10 @@ const Navbar = () => {
           </ListItem>
           {/* Add tweet button */}
           <ListItem as={Button} className={styles['list-button']} onClick={onOpen}>
-            Tweet
+            <span className={styles['list-button-text']}>Tweet</span>
+            <span className={styles['list-button-icon']}>
+              <IoAdd />
+            </span>
           </ListItem>
         </List>
         <Spacer />
@@ -75,7 +78,9 @@ const Navbar = () => {
             <span className={styles['box-name']}>{user?.displayName || ''}</span>
             <span className={styles['box-username']}>@{username}</span>
           </Box>
-          <Image src={require('/public/icons/more.svg')} alt="More" width={20} height={20} />
+          <Box className={styles['box-icon']}>
+            <Image src={require('/public/icons/more.svg')} alt="More" width={20} height={20} />
+          </Box>
         </Box>
       </Box>
       {/* Modal */}

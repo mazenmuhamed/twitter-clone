@@ -16,6 +16,12 @@
   transition: none;
 }
 
+@media only screen and (max-width: 37.5em) {
+  .tab {
+    font-size: 1.3rem;
+  }
+}
+
 .tab[aria-selected='true'] {
   font-weight: 600;
   color: var(--color-primary-text);

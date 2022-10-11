@@ -4,6 +4,12 @@
   display: flex;
 }
 
+@media only screen and (max-width: 62.5em) {
+  .page {
+    overflow-y: auto;
+  }
+}
+
 .cover {
   flex: 1.2;
   height: 100vh;
@@ -13,6 +19,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+@media only screen and (max-width: 62.5em) {
+  .cover {
+    display: none;
+  }
 }
 
 .cover-logo {
@@ -29,6 +41,12 @@
   overflow-y: auto;
 }
 
+@media only screen and (max-width: 62.5em) {
+  .container {
+    align-items: center;
+  }
+}
+
 .container-logo {
   width: 4.8rem;
   height: 4.8rem;
@@ -42,11 +60,24 @@
   margin: 4.5rem 0;
 }
 
+@media only screen and (max-width: 56.25em) {
+  .container-title {
+    font-size: 5rem;
+    margin-bottom: 3.5rem;
+  }
+}
+
 .container-subtitle {
   font-size: 3.5rem;
   font-weight: 700;
   color: var(--color-primary-text);
   margin-bottom: 3rem;
+}
+
+@media only screen and (max-width: 56.25em) {
+  .container-subtitle {
+    font-size: 2.5rem;
+  }
 }
 
 .buttons {

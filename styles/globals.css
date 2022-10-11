@@ -19,6 +19,14 @@
   --color-gray-hover: #f1f3f5;
 
   --color-primary-text: #0f1419;
+
+  /* Media queries */
+  --breakpoint-xs: 28.125em; /* 450px */
+  --breakpoint-sm: 37.5em; /* 600px */
+  --breakpoint-md: 56.25em; /* 900px */
+  --breakpoint-lg: 62.5em; /* 1000px */
+  --breakpoint-xl: 75em; /* 1200px */
+  --breakpoint-xxl: 81.25em; /* 1300px */
 }
 
 * {
@@ -34,6 +42,12 @@
 
 html {
   font-size: 62.5%; /* 1rem = 10px */
+}
+
+@media only screen and (max-width: 28.125em) {
+  html {
+    font-size: 50%; /* 1rem = 8px */
+  }
 }
 
 body {
@@ -53,6 +67,24 @@ em-emoji-picker {
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--color-gray-light-1);
+}
+
+@media only screen and (max-width: 75em) {
+  .container {
+    width: 55rem;
+  }
+}
+
+@media only screen and (max-width: 56.25em) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 37.5em) {
+  .container {
+    width: 100%;
+  }
 }
 
 .tooltip {

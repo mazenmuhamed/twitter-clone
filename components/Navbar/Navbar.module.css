@@ -24,6 +24,18 @@
   top: 0;
 }
 
+@media only screen and (max-width: 81.25em) {
+  .header {
+    width: 10rem;
+  }
+}
+
+@media only screen and (max-width: 37.5em) {
+  .header {
+    width: 7rem;
+  }
+}
+
 .container {
   align-self: flex-start;
   display: flex;
@@ -31,6 +43,20 @@
   margin: 0.2rem 3rem;
   width: 85%;
   height: 100%;
+}
+
+@media only screen and (max-width: 81.25em) {
+  .container {
+    width: fit-content;
+    align-items: center;
+  }
+}
+
+@media only screen and (max-width: 37.5em) {
+  .container {
+    width: 7rem;
+    margin: 0;
+  }
 }
 
 .logo {
@@ -48,6 +74,18 @@
   margin-top: 0.5rem;
 }
 
+@media only screen and (max-width: 81.25em) {
+  .list {
+    align-items: center;
+  }
+}
+
+@media only screen and (max-width: 37.5em) {
+  .list {
+    align-items: center;
+  }
+}
+
 .list-item {
   width: fit-content;
   display: flex;
@@ -57,8 +95,21 @@
   gap: 2rem;
 }
 
+@media only screen and (max-width: 81.25em) {
+  .list-item {
+    gap: 0;
+    padding: 1.5rem;
+  }
+}
+
 .list-item-title {
   font-size: 1.9rem;
+}
+
+@media only screen and (max-width: 81.25em) {
+  .list-item-title {
+    display: none;
+  }
 }
 
 .list-item-title[data-active='true'] {
@@ -76,6 +127,36 @@
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 }
 
+@media only screen and (max-width: 81.25em) {
+  .list-button {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+@media only screen and (max-width: 37.5em) {
+  .list-button {
+    align-self: center;
+    padding: 1rem;
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+}
+
+.list-button-icon {
+  display: none;
+}
+
+@media only screen and (max-width: 81.25em) {
+  .list-button-icon {
+    display: block;
+    font-size: 2.5rem;
+  }
+  .list-button-text {
+    display: none;
+  }
+}
+
 .list-button:hover {
   background: var(--color-primary-dark);
 }
@@ -90,6 +171,13 @@
   margin-bottom: 0.7rem;
 }
 
+@media only screen and (max-width: 81.25em) {
+  .box {
+    width: fit-content;
+    gap: 0;
+  }
+}
+
 .box-image {
   border-radius: 10rem;
 }
@@ -101,6 +189,12 @@
   flex: 1;
 }
 
+@media only screen and (max-width: 81.25em) {
+  .box-names {
+    display: none;
+  }
+}
+
 .box-name {
   font-weight: 600;
 }
@@ -110,4 +204,10 @@
   font-size: 1.4rem;
   font-weight: 500;
   margin-top: -1px;
+}
+
+@media only screen and (max-width: 81.25em) {
+  .box-icon {
+    display: none !important;
+  }
 }
