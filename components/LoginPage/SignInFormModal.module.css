@@ -12,6 +12,13 @@
   margin-right: 12rem;
 }
 
+@media only screen and (max-width: 56.25em) {
+  .modal-body {
+    margin-left: 8rem;
+    margin-right: 8rem;
+  }
+}
+
 .modal-title {
   font-size: 3rem;
   font-weight: 700;
@@ -36,6 +43,12 @@
   border-radius: 10rem;
   transition: background 0.2s;
   outline: none;
+}
+
+@media only screen and (max-width: 56.25em) {
+  .button {
+    width: 100%;
+  }
 }
 
 .button[data-type='solid'] {
@@ -84,6 +97,12 @@
   justify-content: center;
   width: 29rem;
   margin: 1rem 0;
+}
+
+@media only screen and (max-width: 56.25em) {
+  .separetor {
+    width: 100%;
+  }
 }
 
 .form {
