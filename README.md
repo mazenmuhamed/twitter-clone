@@ -25,4 +25,5 @@ Using `firebase` for backend
 - Adding interactions such as (add tweets - Likes - replys) using firestore
 - Fill uploading using firebase storage
 - Update a user's profile
-- Follow others users
+- Searching for other users
+- Follow functionality
