@@ -7,8 +7,8 @@ import { ChakraProvider } from '@chakra-ui/react';
 
 import { AuthProvider } from '../hooks/useAuth';
 import progress from '../lib/progress-bar';
-import '../styles/globals.css';
 import AppProvider from '../store/AppContext';
+import '../styles/globals.css';
 
 // Progress bar
 Router.events.on('routeChangeStart', progress.start);

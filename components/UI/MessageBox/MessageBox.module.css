@@ -1,0 +1,37 @@
+.container {
+  position: fixed;
+  bottom: 0;
+  right: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--background);
+  width: 35rem;
+  height: 5.5rem;
+  padding: 0 1.5rem;
+  border-top-left-radius: 1.7rem;
+  border-top-right-radius: 1.7rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  /* gap: 1rem; */
+}
+
+.icon {
+  font-size: 2.3rem;
+  padding: 0.8rem;
+  border-radius: 10rem;
+}
+
+.icon:hover {
+  background: var(--color-gray-light-1);
+}
