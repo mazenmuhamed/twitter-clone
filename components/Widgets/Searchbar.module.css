@@ -18,6 +18,10 @@
   background: var(--color-gray-hover);
 }
 
+.container[data-bg='true'] {
+  background: var(--color-white);
+}
+
 .container:focus-within {
   background: #fff;
   outline: 1px solid var(--color-primary);

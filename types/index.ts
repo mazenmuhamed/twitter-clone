@@ -16,3 +16,10 @@ export interface Tweet extends IData {}
 export interface Comment extends IData {
   replyTo: string;
 }
+
+export type Artical = {
+  heading: string;
+  description: string;
+  photo: string;
+  tag: string;
+};

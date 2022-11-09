@@ -1,8 +1,9 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { TabPanel, TabPanels } from '@chakra-ui/react';
 import { DocumentData } from 'firebase/firestore';
 
 import { Tweet as TweetData } from '../../types';
 import Tweet from '../HomePage/Feed/Tweet';
+import AppTabList from '../UI/AppTabList';
 import styles from './ProfileTabs.module.css';
 
 const tabs = ['Tweets', 'Tweets & replies', 'Media', 'Likes'];
@@ -13,15 +14,7 @@ type Props = {
 
 const ProfileTabs = ({ tweets }: Props) => {
   return (
-    <Tabs isLazy={true} isFitted={true} className={styles.tabs}>
-      <TabList className={styles.list}>
-        {tabs.map((tab, index) => (
-          <Tab key={index} className={styles.tab}>
-            {tab}
-          </Tab>
-        ))}
-      </TabList>
-
+    <AppTabList tabs={tabs} tabsClassName={styles.tabs}>
       <TabPanels>
         <TabPanel padding="0">
           {tweets.map(tweet => (
@@ -29,7 +22,7 @@ const ProfileTabs = ({ tweets }: Props) => {
           ))}
         </TabPanel>
       </TabPanels>
-    </Tabs>
+    </AppTabList>
   );
 };
 

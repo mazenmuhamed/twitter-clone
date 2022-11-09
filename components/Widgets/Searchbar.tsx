@@ -9,7 +9,11 @@ import useAuth from '../../hooks/useAuth';
 import styles from './Searchbar.module.css';
 import UserAvatar from '../UI/UserAvatar';
 
-const Searchbar = () => {
+type Props = {
+  className?: string;
+};
+
+const Searchbar = ({ className }: Props) => {
   const [inputValue, setInputValue] = useState('');
   const [showBox, setShowBox] = useState(false);
   const [users, setUsers] = useState<DocumentData[]>([]);
@@ -50,7 +54,7 @@ const Searchbar = () => {
 
   return (
     <Box
-      className={styles.searchbar}
+      className={`${styles.searchbar} ${className}`}
       onFocus={() => setShowBox(true)}
       onBlur={() => setTimeout(() => setShowBox(false), 200)}
     >

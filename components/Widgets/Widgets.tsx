@@ -1,4 +1,4 @@
-import { Box, Button, Text } from '@chakra-ui/react';
+import { Box, Button, Highlight, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 
 import FooterLinks from './FooterLinks';
@@ -9,12 +9,19 @@ type TrendProps = {
   trend: any;
 };
 
-const Trend = ({ trend }: TrendProps) => {
+export const Trend = ({ trend }: TrendProps) => {
+  const regex = /(#|@)(\w+)/g;
+  const hashtags = trend.description.match(regex);
+
   return (
     <Box className={styles.trend}>
       <Text className={styles['trend-tag']}>{trend.tag}</Text>
       <Box className={styles['trend-content']}>
-        <Text className={styles['trend-content-desc']}>{trend.description}</Text>
+        <Text className={styles['trend-content-desc']}>
+          <Highlight query={hashtags || ''} styles={{ color: '#1d9bf0' }}>
+            {trend.description}
+          </Highlight>
+        </Text>
         <Box className={styles['trend-content-image']}>
           <Image
             src={trend.photo}

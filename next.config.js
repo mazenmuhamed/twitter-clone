@@ -3,11 +3,11 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: [
-      'scontent.fcai21-4.fna.fbcdn.net',
-      'lh3.googleusercontent.com',
-      'firebasestorage.googleapis.com',
-      'pbs.twimg.com',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
     ],
   },
 };
