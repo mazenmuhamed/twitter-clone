@@ -13,6 +13,7 @@ Demo: https://twitter-clone-rouge-psi.vercel.app/
 - Home
 - Profile
 - Tweet Detail Page
+- Explore
 
 ### Features
 
