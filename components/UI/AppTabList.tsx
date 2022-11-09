@@ -1,9 +1,11 @@
 import { Tab, TabList, Tabs } from '@chakra-ui/react';
+import { ReactNode } from 'react';
 import styles from './AppTabList.module.css';
 
 type Props = {
   tabs: string[];
   tabsClassName?: string;
+  children?: ReactNode;
 };
 
 const AppTabList = ({ tabs, tabsClassName }: Props) => {
