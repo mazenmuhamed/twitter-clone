@@ -1,4 +1,4 @@
-import { Tab, TabList, Tabs } from '@chakra-ui/react';
+import { Tab, TabList, TabPanels, Tabs } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 import styles from './AppTabList.module.css';
 
@@ -8,7 +8,7 @@ type Props = {
   children?: ReactNode;
 };
 
-const AppTabList = ({ tabs, tabsClassName }: Props) => {
+const AppTabList = ({ tabs, tabsClassName, children }: Props) => {
   return (
     <Tabs isLazy={true} isFitted={true} className={tabsClassName}>
       <TabList className={styles.list}>
@@ -18,6 +18,7 @@ const AppTabList = ({ tabs, tabsClassName }: Props) => {
           </Tab>
         ))}
       </TabList>
+      {children}
     </Tabs>
   );
 };
